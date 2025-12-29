@@ -30,21 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   clickSound.volume = 0.6;
   winSound.volume = 0.7;
 
-  /* ======================
-      DIFFICULTY LOGIC 
-  ========================*/
-  document.querySelectorAll(".difficulty button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".difficulty button")
-      .forEach(b => b.classList.remove("active"));
-
-    btn.classList.add("active");
-    botLevel = btn.dataset.level;
-
-    resetGame();
-  });
-});
-  
   /* =======================
      WIN PATTERNS
   ======================= */
@@ -146,7 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
       : null;
   }
 
-  
+  function getAIMove() {
+    if (botLevel === "easy") {
+      const empty = board
+        .map((v, i) => (v === null ? i : null))
+        .filter(v => v !== null)
+      return empty[Math.floor(Math.random() * empty.length)];
+    }
+
+    if (botLevel === "medium") {
+      return findBestMove();
+    }
+
+    if (botLevel === "hard") {
+      return minimaxMove();
+    }
+  }
 
   function minimaxMove() {
     let bestScore = -Infinity;

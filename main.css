@@ -1,0 +1,352 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+body {
+     font-family: Arial, sans-serif;
+  min-height: 100vh;
+
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url("https://images.unsplash.com/photo-1542751371-adc38448a05e");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    color: white;
+    flex-wrap: wrap;
+    min-height: 160px;
+
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+      ),
+      url("https://images.unsplash.com/photo-1511512578047-dfb367046420");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    font-size: 1.8rem;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.auth-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600px;
+}
+
+.login {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.signup {
+    background: #6366f1;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+    }
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #6366f1;
+    bottom: -4px;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #6366f1;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.games {
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+}
+
+.game-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.game-card {
+    position: relative;
+    flex: 1 1 220px;
+    max-width: 260px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.game-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        #6366f1,
+        #22d3ee,
+        #6366f1,
+        transparent
+    );
+    background-size: 300%;
+    animation: neonBorder 3s linear infinite;
+    z-index: 0;
+}
+
+@keyframes neonBorder {
+    0% { background-position: 0%;}
+    100% { background-position: 300%;}
+}
+
+.game-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1;
+}
+
+.game-card span {
+    position: relative;
+    z-index: 2;
+}
+
+.ttt {
+    background-image: url("https://images.unsplash.com/photo-1611996575749-79a3a250f948");
+}
+
+.snake {
+    background-image: url("https://images.unsplash.com/photo-1605379399642-870262d3d051");
+}
+
+.rps {
+    background-image: url("https://images.unsplash.com/photo-1525182008055-f88b95ff7980");
+}
+
+.memorygame {
+    background-image: url("https://images.unsplash.com/photo-1511512578047-dfb367046420");
+}
+
+.game-card:hover {
+    transform: translateY(-10px) scale(1.04);
+}
+
+.game-card .glow {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(99,102,241,0.6), transparent);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+@keyframes slideup {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-card {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.game-card.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.5);
+    transform: scale(0);
+    animation: rippleAnim 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.locked {
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ef4444;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    border-radius: 20px;
+    z-index: 3;
+}
+    
+.features {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    padding: 50px 20px;
+}
+
+.feature {
+    flex: 1 1 200px;
+    max-width: 260px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 24px;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+}
+
+@media (max-width: 768px) {
+    .features {
+        flex-wrap: wrap;
+    }
+}   
+
+.about {
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+    .hero h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h2 {
+        font-size: 2.2rem;
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe - Mini Arcade</title>
+    <link rel="stylesheet" href="tictactoe.css">
+</head>
+<body class="fade-in">
+
+    <div class="game-container">
+
+        <h1>Tic Tac Toe</h1>
+
+        <div class="scoreboard">
+            <div>X Wins: <span id="xWins">0</span></div>
+            <div>O Wins: <span id="oWins">0</span></div>
+        </div>
+
+        <div class="board" id="board">
+            <div class="win-line" id="winLine"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div id="status"></div>
+        <button onclick="resetGame()">Restart</button>
+    </div>
+
+    <script src="tictactoe.js"></script>
+</body>
+</html>

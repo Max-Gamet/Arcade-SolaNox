@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Arcade</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">Mini Arcade</h1>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#games">Games</a>
+            <a href="#about">About</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="login">Log In</button>
+            <button class="signup">Sign Up</button>
+        </div>
+    </header>
+    <section class="hero" id="home">
+        <h2>Play. Relax. Repeat</h2>
+        <p>Fun mini games made for everyone. No ads. Just Play</p>
+    </section>   
+    <section class="games" id="games">
+        <h2>Games</h2>
+        <div class="game-cards">
+            <div class="game-card active" data-link="games/tictactoe.html">
+                <span>Tic Tac Toe</span>
+            </div>
+
+            <div class="game-card locked" data-link="games/snake.html">
+                <span>Snake</span>
+                <div class="badge">Coming Soon!</div>
+            </div>
+
+            <div class="game-card locked">
+                <span>Rock Paper Scissors</span>
+                <div class="badge">Coming Soon!</div>
+            </div>
+
+            <div class="game-card locked">
+                <span>Memory Game</span>
+                <div class="badge">Coming Soon!</div>
+            </div>
+        </div>
+    </section>
+    <section class="features">
+        <div class="feature">🎮 Fun Games</div>
+        <div class="feature">⚡ Fast & Lightweight</div>
+        <div class="feature">📱 Mobile Friendly</div>
+    </section>
+    <section class="about" id="about">
+        <h2>About Mini Arcade</h2>
+        <p>
+            Mini Arcade is a fun-first website made to relax, enjoy,
+            and challenge your brain with simple games.
+        </p>
+    </section>
+    <section class="footer">
+        <p>© 2025 Mini Arcade • Built for fun 🎮</p>
+    </section>
+
+    <script>
+    document.querySelectorAll(".game-card").forEach(card => {
+        card.addEventListener("mousemove", e => {
+            let glow = card.querySelector(".glow");
+            if (!glow) {
+                glow = document.createElement("div");
+                glow.className = "glow";
+                card.appendChild(glow);
+            }
+
+            const rect = card.getBoundingClientRect();
+            glow.style.left = `${e.clientX - rect.left}px`; 
+            glow.style.top = `${e.clientY - rect.top}px`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            const glow = card.querySelector(".glow");
+            if (glow) glow.remove();
+        });
+
+        card.addEventListener("click", e => {
+            if (card.classList.contains("locked")) return;
+
+            const ripple = document.createElement("span");
+            ripple.className = "ripple";
+            ripple.style.left = `${e.offsetX}px`;
+            ripple.style.top = `${e.offsetY}px`;
+            card.appendChild(ripple);
+            
+            setTimeout( () => ripple.remove(), 600);
+
+            const link = card.getAttribute("data-link");
+            if (link) {
+                setTimeout( () => window.location.href = link, 300);  
+            }
+        }); 
+    });
+    </script>
+
+</body>
+</html>
+
+<script>
+const cards = document.querySelectorAll(".game-card");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+});
+    
+cards.forEach(card => observer.observe(card));
+
+function openGame(name) {
+    alert(`Game "${name}" coming soon!`);
+}
+</script>

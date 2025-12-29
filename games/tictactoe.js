@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPlayer = HUMAN;
   let board = Array(9).fill(null);
   let gameOver = false;
-  let botLevel = "medium";
 
   /* =======================
      AUDIO (SAFE LOAD)
@@ -132,80 +131,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getAIMove() {
-    if (botLevel === "easy") {
-      const empty = board
-        .map((v, i) => (v === null ? i : null))
-        .filter(v => v !== null)
-      return empty[Math.floor(Math.random() * empty.length)];
-    }
-
-    if (botLevel === "medium") {
-      return findBestMove();
-    }
-
-    if (botLevel === "hard") {
-      return minimaxMove();
-    }
-  }
-
-  function minimaxMove() {
-    let bestScore = -Infinity;
-    let move = null;
-
-    for (let i = 0; i < 9; i++) {
-      if (board[i] === null) {
-        board[i] = AI;
-        let score = minimax(board, 0, false);
+  for (let i = 0; i < 9; i++) {
+    if (board[i] === null) {
+      board[i] = AI;
+      if (checkWin(AI)) {
         board[i] = null;
-
-        if (score > bestScore) {
-          bestScore = score;
-          move = i;
-        }
+        return i;
       }
-    }
-    return move;
-  }
-
-  function minimax(boardState, depth, isMaximizing) {
-    const winner = checkTerminal();
-
-    if (winner !== null) {
-      if (winner === AI) return 10 - depth;
-      if (winner === HUMAN) return depth -10;
-      return 0;
-    }
-
-    if(isMaximizing) {
-      let best = -Infinity;
-      for (let i = 0; i < 9; i++) {
-        if (boardState[i] === null) {
-          boardState[i] = AI;
-          best = Math.max(best, minimax(boardState, depth + 1, false));
-          boardState[i] = null;
-        }
-      }
-      return best;
-    } else {
-      let best = Infinity;
-      for (let i = 0; i < 9;i++) {
-        if (boardState[i] === null) {
-          boardState[i] = HUMAN;
-          best = Math.min(best, minimax(boardState, depth + 1, true));
-          boardState[i] = null;
-        }
-      }
-      return best;
+      board[i] = null;
     }
   }
 
-  function checkTerminal() {
-    for (const p of winPatterns) {
-      if (p.combo.every(i => board[i] === AI)) return AI;
-      if (p.combo.every(i => board[i] === HUMAN)) return HUMAN;
+  for (let i = 0; i < 9; i++) {
+    if (board[i] === null) {
+      board[i] = HUMAN;
+      if (checkWin(HUMAN)) {
+        board[i] = null;
+        return i;
+      }
+      board[i] = null;
     }
-    return board.includes(null) ? null : "draw";
   }
+
+  const empty = board
+    .map((v, i) => v === null ? i : null)
+    .filter(i => i !== null);
+
+  return empty[Math.floor(Math.random() * empty.length)];
+}
+
 
   /* =======================
      WIN CHECK

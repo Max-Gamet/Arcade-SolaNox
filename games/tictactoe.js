@@ -85,6 +85,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentPlayer = player === HUMAN ? AI : HUMAN;
   }
+  /* =======================
+      DIFFICULTY LOGIC
+  ========================*/
+
+  document.querySelectorAll(".difficulty button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".difficulty button")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+    botLevel = btn.dataset.level;
+
+    resetGame();
+  });
+});
+
 
   /* =======================
      AI LOGIC

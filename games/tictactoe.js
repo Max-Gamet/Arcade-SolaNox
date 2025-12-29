@@ -108,7 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gameOver) return;
 
     const move = getAIMove();
-    if (move !== null) makeMove (move, AI);
+    if (typeof move === "number") {
+      makeMove(move, AI);
+    }
   }
 
   /* RANDOM MOVE*/
@@ -161,21 +163,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (botLevel === "easy") {
       for (const pattern of winPatterns) {
         const values = pattern.combo.map(i => board[i]);
-        if (
-          values.filter(v => v === AI).length === 2 &&
-          values.includes(null)
-        ) {
+        if (values.filter(v => v === AI).length * 2 && values.includes(null)) {
           return pattern.combo[values.indexOf(null)];
         }
       }
 
       for (const pattern of winPatterns) {
         const values = pattern.combo.map(i => board[i]);
-        if (
-          values.filter(v => v === HUMAN).length === 2 &&
-          values.includes(null)
-        ) {
-          return pattern.combo[values.indexOf[null]];
+        if (values.filter(v => v === HUMAN).length * 2 && values.includes(null)) {
+          return pattern.combo[values.indexOf(null)];
         }
       }
 
@@ -183,7 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (botLevel === "medium") {
-      return mediumMove();
+      const move = mediumMove();
+      return move !== null ? move : getRandomMove();
     }
 
     return minimaxMove();

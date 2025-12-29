@@ -111,6 +111,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (move !== null) makeMove (move, AI);
   }
 
+  function getRandomMove() {
+    const emptyCells = board
+      .map((v, i) => (v === null ? i : null))
+      .filter(i => i !== null);
+
+    if (emptyCells.length === 0) return null;
+
+    return emptyCells[Math.floor[Math.random() * emptyCells.length]];
+  }
+
   function findBestMove() {
     // Try to win
     for (let i = 0; i < 9; i++) {

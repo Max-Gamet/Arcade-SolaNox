@@ -146,19 +146,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let bestScore = -Infinity;
     let move = null;
 
-    for (let i = 0; i < 9; i++) {
-    if (board[i] === null) {
-      board[i] = AI;
-      let score = minimax(board, 0, false);
-      board[i] = null;
+    for (let i = 0; i < 9;i++) {
+      if (board[i] === null) {
+        board[i] = AI;
+        let score = minimax(board, 0, false);
+        board[i] = null;
 
-      if (score > bestScore) {
-        bestScore = score;
-        move = i;
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
       }
     }
-  }
-  return move;
+    return move;
   }
 
   function minimax(boardState, depth, isMaximizing) {

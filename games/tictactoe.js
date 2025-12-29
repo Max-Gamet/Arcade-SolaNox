@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
     botLevel = btn.dataset.level;
 
     resetGame();
+    });
   });
-});
 
 
   /* =======================
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const move = getAIMove();
   if (move !== null) makeMove(move, AI);
-}
+  }
 
   function findBestMove() {
     // Try to win
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   return move;
-}
+  }
 
   function minimax(boardState, depth, isMaximizing) {
     const winner = checkTerminal();
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return best;
   }
-}
+  }
 
   function checkTerminal() {
     for (const p of winPatterns) {
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (p.combo.every(i => board[i] === HUMAN)) return HUMAN;
   }
   return board.includes(null) ? null : "draw";
-}
+  }
 
     // Block human
     for (let i = 0; i < 9; i++) {

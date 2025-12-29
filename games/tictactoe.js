@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 9; i++) {
       if (board[i] === null) {
         board[i] = AI;
-        let score = minimax(board, 0, false);
+        let score = minimax([...board], 0, false);  // Pass copy of board
         board[i] = null;
 
         if (score > bestScore) {
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function minimax(boardState, depth, isMaximizing) {
-    const winner = checkTerminal();
+    const winner = checkTerminal(boardState);  // Pass boardState
 
     if (winner !== null) {
       if (winner === AI) return 10 - depth;
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 0; i < 9; i++) {
         if (boardState[i] === null) {
           boardState[i] = AI;
-          best = Math.max(best, minimax(boardState, depth + 1, false));
+          best = Math.max(best, minimax([...boardState], depth + 1, false));  // Pass copy
           boardState[i] = null;
         }
       }
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 0; i < 9; i++) {
         if (boardState[i] === null) {
           boardState[i] = HUMAN;
-          best = Math.min(best, minimax(boardState, depth + 1, true));
+          best = Math.min(best, minimax([...boardState], depth + 1, true));  // Pass copy
           boardState[i] = null;
         }
       }
@@ -214,12 +214,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function checkTerminal() {
+  function checkTerminal(boardState) {
     for (const p of winPatterns) {
-      if (p.combo.every(i => board[i] === AI)) return AI;
-      if (p.combo.every(i => board[i] === HUMAN)) return HUMAN;
+      if (p.combo.every(i => boardState[i] === AI)) return AI;
+      if (p.combo.every(i => boardState[i] === HUMAN)) return HUMAN;
     }
-    return board.includes(null) ? null : "draw";
+    return boardState.includes(null) ? null : "draw";
   }
 
   /* =======================

@@ -14,6 +14,7 @@ let food;
 let score;
 let gameInterval;
 let isRunning = false;
+let canChangeDirections = true;
 
 function initGame() {
     snake = [{x: 10, y: 10}];
@@ -29,7 +30,7 @@ startbtn.addEventListener("click", () => {
     if (isRunning) return;
     direction = {x: 1, y: 0};
     isRunning = true;
-    gameInterval = setInterval(gameLoop, 120);
+    gameInterval = setInterval(gameLoop, 200);
 });
 
 resetbtn.addEventListener("click", () => {
@@ -38,15 +39,31 @@ resetbtn.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", e => {
-    if (isRunning) return;
+    if (!isRunning || !canChangeDirections) return;
 
-    if (e.key === "ArrowUp" && direction.y === 0) direction = { x: 0, y: -1 };
-    if (e.key === "ArrowDown" && direction.y === 0) direction = { x: 0, y: 1 };
-    if (e.key === "ArrowLeft" && direction.y === 0) direction = { x: -1, y: 0 };
-    if (e.key === "ArrowRight" && direction.y === 0) direction = { x: 1, y: 0};
+    if (e.key === "ArrowUp" && direction.y === 0) {
+        direction = { x: 0, y: -1};
+        canChangeDirections = false;
+    }
+
+    if (e.key === "ArrowDown" && direction.y  === 0 ) {
+        direction = { x: 0, y: 1};
+        canChangeDirections = false;
+    }
+
+    if (e.key === "ArrowLeft" && direction.y === 0) {
+        direction = {x: -1, y: 0};
+        canChangeDirections = false;
+    }
+
+    if (e.key === "ArrowRight" && direction.y === 0) {
+        direction = { x: 1, y: 0};
+        canChangeDirections = false;
+    }
 });
 
 function gameLoop() {
+    canChangeDirections = true;
     moveSnake();
     checkCollision();
     draw();
@@ -90,7 +107,17 @@ function checkCollision() {
 function endGame() {
     clearInterval(gameInterval);
     isRunning = false;
-    alert("Game Over!");
+
+    const death = document.getElementById("deathScreen");
+    const finalScore = document.getElementById("finalScore");
+
+    finalScore.textContent = score;
+    death.classList.remove("hidden");
+
+    setTimeout(() => {
+        death.classList.add("hidden");
+        initGame();
+    }, 2000);
 }
 
 function draw() {

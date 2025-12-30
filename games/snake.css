@@ -41,3 +41,14 @@ button {
 .hidden {
     display: none;
 }
+
+#deathScreen button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background: black;
+    color: #22d3ee;
+    box-shadow: 0 0 20px #22d3ee;
+    border: 2px solid #22d3ee;
+}

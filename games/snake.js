@@ -18,6 +18,12 @@ let direction;
 let lastDirection;
 let gameInterval;
 let isRunning = false;
+let portalSides = {
+    top: false,
+    bottom: false,
+    left: false,
+    right: false
+};
 
 /* SPEED CONTROL */
 let speed = 150;
@@ -36,7 +42,8 @@ function initGame() {
   speed = 150;
   isRunning = false;
 
-  scoreEl.textContent = "Score: 0";
+  randomizePortals();
+
   draw();
 }
 
@@ -92,6 +99,22 @@ document.addEventListener("touchend", e => {
   }
 });
 
+function randomizePortals() {
+    portalSides = {
+        top: false,
+        bottom: false,
+        left: false,
+        right: false
+    };
+
+    const sides = ["top", "bottom", "left", "right"];
+
+    while (Object.values(portalSides).filter(v => v).length < 2) {
+        const randomSide = sides[Math.floor(Math.random() * sides.length)];
+        portalSides[randomSide] = true;
+    }
+}
+
 /* =======================
    BUTTONS
 ======================= */
@@ -137,15 +160,31 @@ function moveSnake() {
 function checkCollision() {
   const head = snake[0];
 
-  if (
-    head.x < 0 ||
-    head.y < 0 ||
-    head.x >= TILES ||
-    head.y >= TILES
-  ) {
-    endGame();
+  // LEFT WALL
+  if (head.x < 0) {
+    if (portalSides.left) head.x = TILES - 1;
+    else endGame();
   }
 
+  // RIGHT WALL
+  if (head.x >= TILES) {
+    if (portalSides.right) head.x = 0;
+    else endGame();
+  }
+
+  // TOP WALL
+  if (head.y < 0) {
+    if (portalSides.top) head.y = TILES - 1;
+    else endGame();
+  }
+
+  // BOTTOM WALL
+  if (head.y >= TILES) {
+    if (portalSides.bottom) head.y = 0;
+    else endGame();
+  }
+
+  // SELF COLLISION
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
       endGame();

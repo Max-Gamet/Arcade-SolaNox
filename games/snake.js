@@ -176,25 +176,60 @@ function endGame() {
    DRAW
 ======================= */
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "#22ff22";
-  snake.forEach(part => {
-    ctx.fillRect(
-      part.x * GRID,
-      part.y * GRID,
-      GRID,
-      GRID
-    );
-  });
+    snake.forEach((part, index) => {
+        ctx.fillStyle = "#22ff22";
 
-  ctx.fillStyle = "#ff3355";
-  ctx.fillRect(
-    food.x * GRID,
-    food.y * GRID,
-    GRID,
-    GRID
-  );
+        ctx.fillRect(
+            part.x * GRID,
+            part.y * GRID,
+            GRID,
+            GRID
+        );
+
+        if (index === 0) {
+            ctx.fillStyle = "black";
+
+            const eyeSize = 3;
+            const eyeOffsetX = direction.x !== 0 ? 12 : 6;
+            const eyeOffsetY = direction.y !== 0 ? 12 : 6;
+
+            ctx.fillRect(
+                part.x * GRID + eyeOffsetX,
+                part.y * GRID + eyeOffsetY,
+                eyeSize,
+                eyeSize
+            );
+
+            ctx.fillRect(
+                part.x * GRID + GRID - eyeOffsetX - eyeSize,
+                part.y * GRID + eyeOffsetY,
+                eyeSize,
+                eyeSize
+            );
+        }
+    });
+
+    const fx = food.x * GRID + GRID / 2;
+    const fy = food.y * GRID + GRID / 2;
+
+    ctx.fillStyle = "#ff2d2d";
+    ctx.beginPath();
+    ctx.arc(fx, fy, GRID / 2.4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    ctx.beginPath();
+    ctx.arc(fx - 3, fy - 3, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = "#3b2f2f";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(fx, fy - GRID / 2.5);
+    ctx.lineTo(fx, fy - GRID / 1.7);
+    ctx.stroke();
 }
 
 /* =======================

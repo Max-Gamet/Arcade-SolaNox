@@ -25,3 +25,40 @@ body {
     margin-top: 20px;
     font-size: 22px;
 }
+
+#scoreBoard {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 20px auto;
+    padding: 15px 30px;
+    width: fit-content;
+    border: 2px solid cyan;
+    border-radius: 14px;
+    box-shadow: 0 0 20px cyan;
+}
+
+#scoreBoard div {
+    font-size: 18px;
+}
+
+#scoreBoard span {
+    display: block;
+    font-size: 36px;
+    color: lime;
+    margin-top: 5px;
+}
+
+#aiChoice {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #22d3ee;
+    box-shadow: 0 0 12px #22d3ee;
+}
+
+@media (max-width: 600px) {
+    #aiChoice {
+        font-size: 32px;
+    }
+}

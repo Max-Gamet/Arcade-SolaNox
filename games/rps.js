@@ -2,6 +2,12 @@ const buttons = document.querySelectorAll("#choices button");
 const resultEl = document.getElementById("result");
 const playerScoreEl = document.getElementById("playerScore");
 const aiScoreEl = document.getElementById("aiScore");
+const emojiMap = {
+    rock: "🪨",
+    paper: "📄",
+    scissors: "✂️"
+};
+const aiChoiceEl = document.getElementById("aiChoice");
 
 let playerScore = 0;
 let aiScore = 0;
@@ -18,6 +24,8 @@ buttons.forEach(btn => {
 });
 
 function playRound(player, ai) {
+    aiChoiceEl.textContent = `AI chose: ${emojiMap[ai]}`;
+    
     if (player === ai) {
         resultEl.textContent = `Draw: Both chose ${player}`;
         return;

@@ -81,7 +81,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0px;
+    gap: -2px;
 }
 
 .mobile-controls button {
@@ -98,7 +98,11 @@ button {
 
 .mobile-controls .middle {
     display: flex;
-    gap: 0px;
+    gap: 6px;
+}
+
+.mobile-controls button.down {
+    margin-top: -4px;
 }
 
 .mobile-controls button:active {

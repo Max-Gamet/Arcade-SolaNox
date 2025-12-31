@@ -19,6 +19,8 @@ canvas {
     display: block;
     margin: 10px auto;
     touch-action: none;
+    max-width: 92vw;
+    max-height: 92vw;
 }
 
 button {
@@ -66,37 +68,37 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 8px;
 }
 
 .game-buttons {
     display: flex;
-    gap: 14px;
+    gap: 10px;
 }
 
 .mobile-controls {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .mobile-controls button {
-    width: 56px;
-    height: 56px;
-    font-size: 22px;
-    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    border-radius: 10px;
     border: none;
     background: rgba(0, 255, 0, 0.15);
     color: #00ff00;
-    box-shadow: 0 0 15px #00ff00;
+    box-shadow: 0 0 10px #00ff00;
     touch-action: none;
 }
 
 .mobile-controls .middle {
     display: flex;
-    gap: 40px;
+    gap: 22px;
 }
 
 .mobile-controls button:active {

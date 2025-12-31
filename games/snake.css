@@ -72,9 +72,20 @@ button {
     margin-top: 4px;
 }
 
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
 .game-buttons {
     display: flex;
     gap: 8px;
+}
+
+#mobileControls {
+    display: none;
 }
 
 .mobile-controls {
@@ -114,6 +125,10 @@ button {
 @media (max-width: 768px) {
     .mobile-controls{
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
     }
 }
 

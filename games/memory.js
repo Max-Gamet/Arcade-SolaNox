@@ -63,12 +63,11 @@ function checkMatch() {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
 
-        const matchedCards = document.querySelectorAll(".card.matched");
-        if (matchedCards.length === cards.length) {
-            handleWin();
-        }
-
         resetTurn();
+
+        if (document.querySelectorAll(".card.matched").length === cards.length) {
+            setTimeout(handleWin, 400);
+        }
     } else {
         setTimeout(() => {
             firstCard.classList.remove("flipped");
@@ -84,12 +83,42 @@ function handleWin() {
     lastScore = moves;
     localStorage.setItem("memoryLastScore", lastScore);
 
+    const highScorePopup = document.getElementById("highScorePopup");
+
+    let isNewHighScore = false;
+
     if (bestScore === null || moves < bestScore) {
         bestScore = moves;
         localStorage.setItem("memoryBestScore", bestScore);
+        isNewHighScore = true;
     }
 
     updateScoreUI();
+
+    if (isNewHighScore) {
+        highScorePopup.classList.remove("hidden");
+        highScorePopup.classList.add("show");
+
+        launchConfetti();
+
+        setTimeout(() => {
+            highScorePopup.classList.remove("show");
+            highScorePopup.classList.add("hidden");
+        }, 2000);
+    }
+
+    board.classList.add("win-glow");
+
+    setTimeout(() => {
+        board.classList.remove("win-glow")
+    }, 2000);
+
+    const popup = document.getElementById("winPopup");
+    popup.classList.add("show");
+
+    setTimeout(() => {
+        popup.classList.remove("show")
+    }, 1500);
 }
 
 function resetTurn() {
@@ -112,7 +141,9 @@ restartBtn.addEventListener("click", () => {
     firstCard = null;
     secondCard = null;
     moves = 0;
-    movesEl.textContent = moves;
+    movesEl.textContent = 0;
+
+    document.getElementById("currentMoves").textContent = 0;
 
     createBoard();
 });

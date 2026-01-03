@@ -10,6 +10,9 @@ let secondCard = null;
 let lockBoard = false;
 let moves = 0;
 
+let bestScore = Number(localStorage.getItem("memoryBestScore")) || null;
+let lastScore = Number(localStorage.getItem("memoryLastScore")) || null;
+
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
 }
@@ -29,7 +32,6 @@ function createBoard() {
     });
 
     moves = 0;
-    movesEl.textContent = moves;
 }
 
 function flipCard(card) {
@@ -48,7 +50,7 @@ function flipCard(card) {
     secondCard = card;
     lockBoard = true;
     moves++,
-    movesEl.textContent = moves;
+    updateScoreUI();
 
     checkMatch();
 }
@@ -60,6 +62,12 @@ function checkMatch() {
     if (isMatch) {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
+
+        const matchedCards = document.querySelectorAll(".card.matched");
+        if (matchedCards.length === cards.length) {
+            handleWin();
+        }
+
         resetTurn();
     } else {
         setTimeout(() => {
@@ -72,9 +80,31 @@ function checkMatch() {
     }
 }
 
+function handleWin() {
+    lastScore = moves;
+    localStorage.setItem("memoryLastScore", lastScore);
+
+    if (bestScore === null || moves < bestScore) {
+        bestScore = moves;
+        localStorage.setItem("memoryBestScore", bestScore);
+    }
+
+    updateScoreUI();
+}
+
 function resetTurn() {
     [firstCard, secondCard] = [null, null];
     lockBoard = false;
+}
+
+function updateScoreUI() {
+    movesEl.textContent = moves;
+
+  document.getElementById("currentMoves").textContent = moves;
+  document.getElementById("lastMoves").textContent =
+    lastScore !== null ? lastScore : "--";
+  document.getElementById("bestMoves").textContent =
+    bestScore !== null ? bestScore : "--";
 }
 
 restartBtn.addEventListener("click", () => {
@@ -88,3 +118,4 @@ restartBtn.addEventListener("click", () => {
 });
 
 createBoard();
+updateScoreUI();

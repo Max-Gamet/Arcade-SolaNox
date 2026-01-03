@@ -62,3 +62,32 @@ buttton:hover {
     border-color: lime;
     box-shadow: 0 0 15px lime;
 }
+
+#scoreBoard {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px auto;
+    padding: 14px 26px;
+    border: 2px solid cyan;
+    border-radius: 14px;
+    box-shadow: 0 0 18px cyan;
+    width: fit-content;
+}
+
+#scoreBoard div {
+    text-align: center;
+    color: cyan;
+}
+
+#scoreBoard small {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+#scoreBoard span {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    color: lime;
+}

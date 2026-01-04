@@ -132,3 +132,68 @@ body {
         opacity: 0;
     }
 }
+
+.score-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+.score-row > * {
+    position: static;
+}
+
+#matchScoreBoard {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 20px auto;
+    padding: 15px 30px;
+    width: fit-content;
+    border: 2px solid magenta;
+    border-radius: 14px;
+    box-shadow: 0 0 20px magenta;
+}
+
+#matchScoreBoard div {
+    font-size: 18px;
+}
+
+#matchScoreBoard span {
+    display: block;
+    font-size: 36px;
+    color: gold;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.match-score-inner {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+#playerMatchWins,
+#aiMatchWins {
+    font-size: 2rem;
+    color: gold;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: magenta;
+    margin-bottom: 4px;
+}
+
+@media (max-width: 600px) {
+    #score-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

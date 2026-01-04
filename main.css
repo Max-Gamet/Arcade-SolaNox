@@ -361,3 +361,65 @@ body {
         font-size: 2.2rem;
     }
 }
+
+.games-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.game-cards.scrollable {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 50px;
+}
+
+.game-cards.scrollable::-webkit-scrollbar {
+    display: none;
+}
+
+.game-cards.scrollable::before,
+.game-cards.scrollable::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.game-cards.scrollable::before {
+    left: 0;
+    background: linear-gradient(to right, #000 0%, transparent 100%);
+}
+
+.game-cards.scrollable::after {
+    right: 0;
+    background: linear-gradient(to left, #000 0%, transparent 100%);
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid cyan;
+    color: cyan;
+    font-size: 32px;
+    padding: 6px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 5;
+}
+
+.scroll-btn.left { left: 10px; }
+.scroll-btn.right { right: 10px; }
+
+.games-wrapper.hover .scroll-btn {
+    opacity: 1;
+}

@@ -25,23 +25,34 @@
     </section>   
     <section class="games" id="games">
         <h2>Games</h2>
-        <div class="game-cards">
-            <div class="game-card active" data-link="games/tictactoe.html">
-                <span>Tic Tac Toe</span>
-            </div>
+        <div class="games-wrapper">
+            <button class="scroll-btn left">‹</button>
 
-            <div class="game-card active" data-link="games/snake.html">
-                <span>Snake</span>
-            </div>
+            <div class="game-cards scrollable" id="gamesRow">
+                <div class="game-card active" data-link="games/tictactoe.html">
+                    <span>Tic Tac Toe</span>
+                </div>
 
-            <div class="game-card active" data-link="games/rps.html">
-                <span>Rock Paper Scissors</span>
-            </div>
+                <div class="game-card active" data-link="games/snake.html">
+                    <span>Snake</span>
+                </div>
 
-            <div class="game-card active" data-link="games/memory.html">
-                <span>Memory Game</span>
-                <div class="badge-new">New!</div>
-            </div>
+                <div class="game-card active" data-link="games/rps.html">
+                    <span>Rock Paper Scissors</span>
+                </div>
+
+                <div class="game-card active" data-link="games/memory.html">
+                    <span>Memory Game</span>
+                    <div class="badge-new">New!</div>
+                </div>
+
+                <div class="game-card locked">
+                    <span>Lorem</span>
+                    <div class="badge">Coming Soon!</div>
+                </div>
+            </div> 
+
+            <button class="scroll-btn right">›</button>
         </div>
     </section>
     <section class="features">
@@ -96,6 +107,25 @@
                 setTimeout( () => window.location.href = link, 300);  
             }
         }); 
+    });
+    </script>
+
+    <script>
+    const gamesRow = document.getElementById("gamesRow");
+    const leftBtn = document.querySelectorAll(".scroll-btn.left");
+    const rightBtn = document.querySelectorAll(".scroll-btn.right");
+
+    leftBtn.addEventListener("clicl", () => {
+        gamesRow.scrollBy({ left: -300, behavior: "smooth"});
+    });
+
+    rightBtn.addEventListener("click", () => {
+        gamesRow.scrollBy({ left: 300, behavior: "smooth"});
+    });
+
+    gamesRow.addEventListener("wheel", e => {
+        e.preventDefault();
+        gamesRow.scrollLeft += e.deltaY;
     });
     </script>
 

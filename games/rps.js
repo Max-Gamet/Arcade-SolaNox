@@ -7,12 +7,26 @@ const emojiMap = {
     paper: "📄",
     scissors: "✂️"
 };
+const playerMatchWinsEl = document.getElementById("playerMatchWins");
+const aiMatchWinsEl = document.getElementById("aiMatchWins");
+const matchScoreBoard = document.getElementById("matchScoreBoard");
 const aiChoiceEl = document.getElementById("aiChoice");
 const loadingEmojis = ["🤜", "🤛"]
 let loadingInterval = null;
 
 let playerScore = Number(localStorage.getItem("rpsPlayerWins")) || 0;
 let aiScore = Number(localStorage.getItem("rpsAIWins")) || 0;
+
+const matchWins = {
+    "3": {
+        player: Number(localStorage.getItem("rps3PlayerWins")) || 0,
+        ai: Number(localStorage.getItem("rps3AIWins")) || 0
+    },
+    "5": {
+        player: Number(localStorage.getItem("rps5PlayerWins")) || 0,
+        ai: Number(localStorage.getItem("rps5AIWins")) || 0
+    }
+};
 
 let gameMode = localStorage.getItem("rpsGameMode") || "free";
 let maxWins = gameMode === "3" ? 2 : gameMode === "5" ? 3 : Infinity;
@@ -52,7 +66,9 @@ document.querySelectorAll("#gameModes button").forEach(btn => {
             gameMode === "5" ? 3 :
             Infinity;
 
+
         resetMatch();
+        updateMatchBoardVisibility();
     })
 })
 
@@ -71,6 +87,18 @@ function resetMatch() {
         gameMode === "free"
             ? "Free Play Mode"
             : `Best of ${gameMode}`;
+
+}
+
+function resetRoundScore() {
+    playerScore = 0;
+    aiScore = 0;
+
+    localStorage.setItem("rpsPlayerWins", 0);
+    localStorage.setItem("rpsAIWins", 0);
+
+    playerScoreEl.textContent = 0;
+    aiScoreEl.textContent = 0;
 }
 
 function launchConfetti() {
@@ -121,28 +149,68 @@ function playRound(player, ai) {
     if (win) {
         playerScore++;
         localStorage.setItem("rpsPlayerWins", playerScore);
+        updateMatchUI();
         playerScoreEl.textContent = playerScore;
         resultEl.textContent = `You Win: ${player} beats ${ai}`;
     } else {
         aiScore++;
         localStorage.setItem("rpsAIWins", aiScore);
+        updateMatchUI();
         aiScoreEl.textContent = aiScore;
         resultEl.textContent = `You lose! ${ai} beats ${player}`;
     }
 
-    if (playerScore >= maxWins || aiScore >= maxWins) {
-        if (gameMode !== "free") {
-            gameOver = true;
+    if (gameMode !== "free") {
+        if (playerScore >= maxWins) {
+            matchWins[gameMode].player++;
+            localStorage.setItem(
+                gameMode === "3" ? "rps3PlayerWins" : "rps5PlayerWins",
+                matchWins[gameMode].player
+            );
+
+            updateMatchUI();
+
+            resultEl.textContent = "🔥 YOU WON THE MATCH!";
             launchConfetti();
 
-            resultEl.textContent =
-                playerScore >= maxWins
-                    ? "🔥 YOU WON THE MATCH!"
-                    : "💀 AI WON THE MATCH!";
+            resetRoundScore();
+        }
+
+        if (aiScore >= maxWins) {
+            matchWins[gameMode].ai++;
+            localStorage.setItem(
+                gameMode === "3" ? "rps3AIWins" : "rps5AIWins",
+                matchWins[gameMode].ai
+            );
+
+            updateMatchUI();
+
+            resultEl.textContent = "💀 AI WON THE MATCH!";
+            launchConfetti();
+
+            resetRoundScore();
         }
     }
+
+}
+
+function updateMatchBoardVisibility() {
+    if (gameMode === "free") {
+        matchScoreBoard.classList.add("hidden");
+    } else {
+        matchScoreBoard.classList.remove("hidden");
+        updateMatchUI();
+    }
+}
+
+function updateMatchUI() {
+    if (gameMode === "free") return;
+
+    playerMatchWinsEl.textContent = matchWins[gameMode].player;
+    aiMatchWinsEl.textContent = matchWins[gameMode].ai;
 }
 
 window.addEventListener("load", () => {
     aiChoiceEl.textContent = "AI chose: ?"
-})
+    updateMatchBoardVisibility();
+});

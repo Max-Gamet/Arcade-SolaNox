@@ -9,10 +9,19 @@
 <body>
     <h1>🔥 Neon RPS</h1>
 
-    <div id="scoreBoard">
-        <div>You<br><span id="playerScore">0</span></div>
-        <div>Ai<br><span id="aiScore">0</span></div>
-    </div>
+    <div class="score-row">
+        <div class="match-score-inner">
+            <div id="scoreBoard">
+                <div>You<br><span id="playerScore">0</span></div>
+                <div>Ai<br><span id="aiScore">0</span></div>
+            </div>
+
+            <div id="matchScoreBoard" class="score-board hidden">
+                <div class="label">Your Wins<span id="playerMatchWins">0</span></div>
+                <div class="label">AI Wins<span id="aiMatchWins">0</span></div>
+            </div>
+        </div>
+    </div>  
 
     <div id="gameModes">
         <button data-mode="free">Free Play</button>

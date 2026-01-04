@@ -28,8 +28,8 @@ const matchWins = {
     }
 };
 
-let gameMode = localStorage.getItem("rpsGameMode") || "free";
-let maxWins = gameMode === "3" ? 2 : gameMode === "5" ? 3 : Infinity;
+let gameMode = "free";  // Always start with free mode
+let maxWins = Infinity;  // Since it's free
 let gameOver = false;
 
 playerScoreEl.textContent = playerScore;
@@ -211,6 +211,9 @@ function updateMatchUI() {
 }
 
 window.addEventListener("load", () => {
-    aiChoiceEl.textContent = "AI chose: ?"
+    gameMode = "free";  // Force free mode on every page load
+    maxWins = Infinity;
+    aiChoiceEl.textContent = "AI chose: ?";
     updateMatchBoardVisibility();
+    resultEl.textContent = "Free Play Mode";  // Ensure the result shows free mode
 });

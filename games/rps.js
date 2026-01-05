@@ -32,9 +32,7 @@ let gameMode = "free";  // Always start with free mode
 let maxWins = Infinity;  // Since it's free
 let gameOver = false;
 
-playerScoreEl.textContent = playerScore;
 aiChoiceEl.textContent = "AI chose: ?";
-aiScoreEl.textContent = aiScore;
 
 const choices = ["rock", "paper", "scissors"];
 
@@ -150,13 +148,23 @@ function playRound(player, ai) {
         playerScore++;
         localStorage.setItem("rpsPlayerWins", playerScore);
         updateMatchUI();
-        playerScoreEl.textContent = playerScore;
+        countUp(
+            playerScoreEl,
+            Number(playerScoreEl.textContent),
+            playerScore,
+            90
+        );
         resultEl.textContent = `You Win: ${player} beats ${ai}`;
     } else {
         aiScore++;
         localStorage.setItem("rpsAIWins", aiScore);
         updateMatchUI();
-        aiScoreEl.textContent = aiScore;
+        countUp(
+            aiScoreEl,
+            Number(aiScoreEl.textContent),
+            aiScore,
+            90
+        );
         resultEl.textContent = `You lose! ${ai} beats ${player}`;
     }
 
@@ -206,8 +214,35 @@ function updateMatchBoardVisibility() {
 function updateMatchUI() {
     if (gameMode === "free") return;
 
-    playerMatchWinsEl.textContent = matchWins[gameMode].player;
-    aiMatchWinsEl.textContent = matchWins[gameMode].ai;
+    countUp(
+        playerMatchWinsEl,
+        Number(playerMatchWinsEl.textContent) || 0,
+        matchWins[gameMode].player,
+        120
+    );
+
+    countUp(
+        aiMatchWinsEl,
+        Number(aiMatchWinsEl.textContent) || 0,
+        matchWins[gameMode].ai,
+        120
+    );
+}
+
+function countUp(el, from, to, speed = 80) {
+    if (from === to) return;
+
+    let current = from;
+    const step = from < to ? 1 : -1;
+
+    const interval = setInterval(() => {
+        current += step;
+        el.textContent = current;
+
+        if (current === to) {
+            clearInterval(interval);
+        }
+    }, speed);
 }
 
 window.addEventListener("load", () => {

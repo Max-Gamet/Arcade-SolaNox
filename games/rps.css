@@ -1,8 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: #050505;
     color: cyan;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    margin: 0;
+    padding: 12px;
+    overflow-x: hidden;
 }
 
 #choices button {
@@ -191,9 +198,91 @@ body {
     margin-bottom: 4px;
 }
 
+#playerMatchWins,
+#aiMatchWins,
+#playerScore,
+#aiScore {
+    transition: transform 0.3s ease;
+}
+
+
 @media (max-width: 600px) {
     #score-row {
         flex-direction: column;
         gap: 20px;
     }
+}
+
+@media (max-width: 600px) {
+    .score-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #scoreBoard,
+    #matchScoreBoard {
+        width: 100%;
+        max-width: 320px;
+        padding: 14px 16px;
+    }
+
+    #scoreBoard {
+        gap: 40px;
+    }
+
+    .match-score-inner {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .label {
+        font-size: 0.8rem;
+    }
+
+    #playerMatchWins,
+    #aiMatchWins {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #gameModes {
+        flex: wrap;
+        gap: 10px;
+    }
+
+    #gameModes button {
+        flex: 1 1 30%;
+        min-width: 90px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    #choices {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    #choices button {
+        font-size: 32px;
+        padding: 12px 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    #aiChoice {
+        font-size: 40px;
+        padding: 10px 14px;
+        text-align: center;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+}
+
+#result {
+    min-height: 28px;
 }

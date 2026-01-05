@@ -26,7 +26,7 @@
     <section class="games" id="games">
         <h2>Games</h2>
         <div class="games-wrapper">
-            <button class="scroll-btn left">‹</button>
+            <button class="scroll-btn left" id="scrollLeft">‹</button>
 
             <div class="game-cards scrollable" id="gamesRow">
                 <div class="game-card active" data-link="games/tictactoe.html">
@@ -47,12 +47,12 @@
                 </div>
 
                 <div class="game-card locked">
-                    <span>Lorem</span>
+                    <span>Chess</span>
                     <div class="badge">Coming Soon!</div>
                 </div>
             </div> 
 
-            <button class="scroll-btn right">›</button>
+            <button class="scroll-btn right" id="scrollRight">›</button>
         </div>
     </section>
     <section class="features">
@@ -112,10 +112,10 @@
 
     <script>
     const gamesRow = document.getElementById("gamesRow");
-    const leftBtn = document.querySelectorAll(".scroll-btn.left");
-    const rightBtn = document.querySelectorAll(".scroll-btn.right");
+    const leftBtn = document.getElementById("scrollLeft");
+    const rightBtn = document.getElementById("scrollRight");
 
-    leftBtn.addEventListener("clicl", () => {
+    leftBtn.addEventListener("click", () => {
         gamesRow.scrollBy({ left: -300, behavior: "smooth"});
     });
 
@@ -125,27 +125,39 @@
 
     gamesRow.addEventListener("wheel", e => {
         e.preventDefault();
-        gamesRow.scrollLeft += e.deltaY;
+        gamesRow.scrollLeft += e.deltaY * 0.8;
+    });
+
+    const wrapper = document.querySelector(".games-wrapper");
+
+    wrapper.addEventListener("mouseenter", () => {
+        wrapper.classList.add("hover");
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+        wrapper.classList.remove("hover");
     });
     </script>
 
+
+    <script>
+    const cards = document.querySelectorAll(".game-card");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    });
+    
+    cards.forEach(card => observer.observe(card));
+
+    function openGame(name) {
+        alert(`Game "${name}" coming soon!`);
+    }
+    </script>
 </body>
 </html>
 
-<script>
-const cards = document.querySelectorAll(".game-card");
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
-    });
-});
-    
-cards.forEach(card => observer.observe(card));
-
-function openGame(name) {
-    alert(`Game "${name}" coming soon!`);
-}
-</script>

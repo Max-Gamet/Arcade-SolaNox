@@ -163,6 +163,10 @@ body {
     transition: transform 0.3s ease;
 }
 
+.game-cards.scrollable .game-card {
+    flex: 0 0 260px;
+}
+
 .game-card::before {
     content: "";
     position: absolute;
@@ -371,9 +375,12 @@ body {
 .game-cards.scrollable {
     display: flex;
     gap: 24px;
+    flex-wrap: nowrap;
+    position: relative;
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 20px 50px;
+    justify-content: flex-start;
 }
 
 .game-cards.scrollable::-webkit-scrollbar {
@@ -383,7 +390,7 @@ body {
 .game-cards.scrollable::before,
 .game-cards.scrollable::after {
     content: "";
-    position: absolute;
+    position: sticky;
     top: 0;
     width: 80px;
     height: 100%;
